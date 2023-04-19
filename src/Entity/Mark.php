@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\MarkRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MarkRepository::class)]
 class Mark
@@ -15,6 +18,11 @@ class Mark
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\Range(
+        min: 0,
+        max: 20,
+        notInRangeMessage: 'You must be between {{ min }} and {{ max }}',
+    )]
     private ?float $mark = null;
 
     #[ORM\ManyToOne(inversedBy: 'marks')]
@@ -23,6 +31,11 @@ class Mark
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $added_date = null;
+
+    public function __construct()
+    {
+        $this->added_date = new DateTime();
+    }
 
     public function getId(): ?int
     {

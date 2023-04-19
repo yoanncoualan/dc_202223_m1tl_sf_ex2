@@ -3,18 +3,48 @@
 {% block title %}Hello MarkController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h1>{{'mark.title'|trans}}</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>{{'mark.mark'|trans}}</th>
+            <th>{{'subject.name'|trans}}</th>
+            <th>Coef</th>
+            <th>{{'mark.date'|trans}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set total = 0 %}
+        {% set coefs = 0 %}
+        {% for m in marks %}
+            <tr>
+                <td>{{m.mark}}</td>
+                <td>{{m.subject.name}}</td>
+                <td>{{m.subject.coef}}</td>
+                <td>{{m.addedDate|date('d/m/Y à H:i:s')}}</td>
+            </tr>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+            {% set total = total + (m.mark * m.subject.coef) %}
+            {% set coefs = coefs + m.subject.coef %}
+        {% else %}
+            <tr>
+                <td colspan="4">{{'mark.empty'|trans}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    {% if coefs > 0 %}
+        <tfoot>
+            <tr>
+                <td colspan="4">{{'avg'|trans}} : {{ total / coefs }}</td>
+            </tr>
+        </tfoot>
+    {% endif %}
+</table>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/yoanncoualan/Desktop/DC/M1TL/Symfony/Exercice2/src/Controller/MarkController.php'|file_link(0) }}">src/Controller/MarkController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/yoanncoualan/Desktop/DC/M1TL/Symfony/Exercice2/templates/mark/index.html.twig'|file_link(0) }}">templates/mark/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% if subjects|length > 0 %}
+    <h2>{{'mark.add'|trans}}</h2>
+    {{form(add)}}
+{% else %}
+    <a href="{{path('app_subject')}}">{{'subject.add'|trans}}</a>
+{% endif %}
 {% endblock %}

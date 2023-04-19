@@ -7,6 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+#[UniqueEntity('name')]
 #[ORM\Entity(repositoryClass: SubjectRepository::class)]
 class Subject
 {
@@ -16,9 +19,17 @@ class Subject
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 1,
+        max: 100,
+        minMessage: 'Your first name must be at least {{ limit }} characters long',
+        maxMessage: 'Your first name cannot be longer than {{ limit }} characters',
+    )]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero]
     private ?int $coef = null;
 
     #[ORM\OneToMany(mappedBy: 'subject', targetEntity: Mark::class, orphanRemoval: true)]
@@ -86,5 +97,10 @@ class Subject
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name.' - coef '.$this->coef;
     }
 }

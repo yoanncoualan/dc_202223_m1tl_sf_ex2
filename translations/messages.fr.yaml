@@ -1,0 +1,27 @@
+subject:
+  added: Matière ajoutée
+  title: Liste des matières
+  name: Matière
+  empty: Il n'y a aucune matière
+  add: Ajouter une matière
+  unknown: Matière introuvable
+  updated: Matière mise à jour
+  deleted: Matière supprimée
+
+mark:
+  added: Note ajoutée
+  title: Liste des notes
+  mark: Note
+  date: Date
+  empty: Il n'y a aucune note
+  add: Ajouter une note
+
+Voir: Voir
+Supprimer: Supprimer
+Edit: Modifier
+
+Name: Nom
+Coef: Coef
+Save: Sauvegarder
+
+avg: Moyenne

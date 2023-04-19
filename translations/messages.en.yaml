@@ -1,0 +1,27 @@
+subject:
+  added: Subject added
+  title: Subjects list
+  name: Subject
+  empty: There is no subject
+  add: Add a subject
+  unknown: Subject unknown
+  updated: Subject updated
+  deleted: Subject deleted
+
+mark:
+  added: Mark added
+  title: Marks list
+  mark: Mark
+  date: Date
+  empty: There is no marks
+  add: Add a mark
+
+Voir: Show
+Supprimer: Delete
+Edit: Edit
+
+Name: Name
+Coef: Coef
+Save: Save
+
+avg: Average

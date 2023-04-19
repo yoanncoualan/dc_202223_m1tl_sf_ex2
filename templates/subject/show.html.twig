@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>{{subject.name}}</h1>
+	<p>Coef : {{subject.coef}}</p>
+
+	<h2>{{'Edit'|trans}}</h2>
+	{{form(edit)}}
+
+	<a href="{{path('subject_delete', {'id':subject.id})}}" class="btn btn-danger">{{'Supprimer'|trans}}</a>
+{% endblock %}

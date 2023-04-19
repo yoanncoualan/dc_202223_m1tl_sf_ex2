@@ -3,18 +3,35 @@
 {% block title %}Hello SubjectController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h1>{{'subject.title'|trans}}</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>{{'subject.name'|trans}}</th>
+            <th>Coef</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for s in subjects %}
+            <tr>
+                <td>{{s.name}}</td>
+                <td>{{s.coef}}</td>
+                <td>
+                    <a href="{{path('subject', {'id':s.id})}}" class="btn btn-primary">
+                        {{'Voir'|trans}}
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">{{'subject.empty'|trans}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/yoanncoualan/Desktop/DC/M1TL/Symfony/Exercice2/src/Controller/SubjectController.php'|file_link(0) }}">src/Controller/SubjectController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/yoanncoualan/Desktop/DC/M1TL/Symfony/Exercice2/templates/subject/index.html.twig'|file_link(0) }}">templates/subject/index.html.twig</a></code></li>
-    </ul>
-</div>
+<h2>{{'subject.add'|trans}}</h2>
+{{form(form)}}
 {% endblock %}
